@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: affinity
+  labels:
+    name: affinity
+spec:
+  affinity: 
+    podAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              name: a-pod
+          topologyKey: kubernetes.io/hostname
+
+  containers:
+  - name: affinity
+    image: alpine
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
+
+#  co-locate this pod in the same node, zone, etc. as some other pod(s)
